@@ -19,9 +19,7 @@ import java.util.stream.Collectors;
 public class UserPrincipal implements UserDetails {
     @Getter
     private Long id;
-
     private String username;
-
     @JsonIgnore
     @Getter
     private String email;
@@ -44,6 +42,7 @@ public class UserPrincipal implements UserDetails {
                 authorities
         );
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
@@ -80,7 +79,7 @@ public class UserPrincipal implements UserDetails {
     }
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserPrincipal that = (UserPrincipal) o;

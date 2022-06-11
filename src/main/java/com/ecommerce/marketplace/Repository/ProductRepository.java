@@ -1,18 +1,17 @@
 package com.ecommerce.marketplace.Repository;
 
+import com.ecommerce.marketplace.Entity.Category;
+import com.ecommerce.marketplace.Entity.Product;
 import com.ecommerce.marketplace.Entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import java.util.List;
-import java.util.Optional;
-
 @RepositoryRestResource
-public interface ProductRepository extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String email);
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    Optional<User> findByUsernameOrEmail(String username, String email);
+    Page<Product> findByCategory(Category category, Pageable pageReq);
 
-    List<User> findByIdIn(List<Long> userIds);
-
+    Page<Product> findByCreatedBy(User provider, Pageable pageReq);
 }

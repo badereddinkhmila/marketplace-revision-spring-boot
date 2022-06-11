@@ -6,13 +6,12 @@ import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.TermVector;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,12 +32,12 @@ public class Category extends UserDateAudit {
     @Field(termVector = TermVector.YES)
     private String description;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
     @Fetch(FetchMode.SELECT)
-    @BatchSize(size = 30)
-    private List<Product> products = new ArrayList<>();
+    @BatchSize(size = 10)
+    private Collection<Product> products = new ArrayList<>();
 
 
 }

@@ -18,4 +18,5 @@ public class ProductResponse {
     private Float price;
     private int discount;
     private ProviderSummary provider;
+
 }

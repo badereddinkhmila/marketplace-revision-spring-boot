@@ -1,31 +1,36 @@
 package com.ecommerce.marketplace.request_response_models.request;
 
-import lombok.NonNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductRequest {
 
-    @NonNull
-    @Size(min=3,max=50)
+    @NotNull
+    @Size(min = 3, max = 50)
     private String nameProduct;
 
-    @NonNull
-    @Size(min=10)
+    @NotNull
+    @Size(min = 10)
     private String description;
 
     private boolean isAvailable;
 
-    @NonNull
+    @NotNull
     private Float price;
 
     @Min(0)
     private int quantity;
 
-    @NotBlank
-    private Long category;
-
-    @NotBlank
-    private byte[] productImage;
+    @NotNull
+    private Long categoryId;
 }

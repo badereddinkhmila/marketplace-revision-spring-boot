@@ -1,9 +1,7 @@
 package com.ecommerce.marketplace.Entity;
 
 import com.ecommerce.marketplace.Entity.audit.DateAudit;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.apache.lucene.document.*;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -12,19 +10,24 @@ import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
-import javax.validation.constraints.*;
 import javax.persistence.*;
-import java.util.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "app_users",
         uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "username"
-        }),
-        @UniqueConstraint(columnNames = {
-                "email"
-        })}
+                @UniqueConstraint(columnNames = {
+                        "username"
+                }),
+                @UniqueConstraint(columnNames = {
+                        "email"
+                })}
 )
 @AllArgsConstructor()
 @NoArgsConstructor
@@ -63,7 +66,7 @@ public class User extends DateAudit {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
     private List<Order> orders = new ArrayList<>();
 
-    @OneToMany(mappedBy = "createdBy",cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
     @Fetch(FetchMode.SELECT)
@@ -71,7 +74,15 @@ public class User extends DateAudit {
     @ContainedIn
     private List<Category> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "createdBy",cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    @Fetch(FetchMode.SELECT)
+    @BatchSize(size = 10)
+    @ContainedIn
+    private List<Rule> rules = new ArrayList<>();
+
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
     @Fetch(FetchMode.SELECT)

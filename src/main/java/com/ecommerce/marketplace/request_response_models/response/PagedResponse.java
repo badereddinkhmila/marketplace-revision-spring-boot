@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -19,4 +20,13 @@ public class PagedResponse<T> {
     private int totalPages;
     private boolean last;
 
+    public PagedResponse(Page<T> originalPage) {
+        this.content = originalPage.getContent();
+        this.page = originalPage.getNumber();
+        this.size = originalPage.getSize();
+        this.totalElements = originalPage.getTotalElements();
+        this.totalPages = originalPage.getTotalPages();
+        this.last = originalPage.isLast();
+
+    }
 }
